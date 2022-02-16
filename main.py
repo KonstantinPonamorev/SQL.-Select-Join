@@ -58,6 +58,15 @@ select_tracks_not_in_compilation = connection.execute("""
     WHERE compilation_name = NULL;
     """).fetchall()
 
+select_artist_shorter_track = connection.execute("""
+    SELECT name FROM track
+    JOIN album ON track.album_id = album.id
+    JOIN artist_album ON album.id = artist_album.album_id
+    JOIN artist ON artist_album.artist_id = artist.id
+    WHERE duration_sec = (
+        SELECT MIN(duration_sec) FROM track);
+    """).fetchall()
+
 # pprint(select_artist_in_genre_count)
 # pprint(select_count_tracks_20192020)
 # pprint(select_avg_duration_by_album)
@@ -65,3 +74,4 @@ select_tracks_not_in_compilation = connection.execute("""
 # pprint(select_compilation_with_Monica)
 # pprint(select_albums_multigenre)
 # print(select_tracks_not_in_compilation)
+# pprint(select_artist_shorter_track)
