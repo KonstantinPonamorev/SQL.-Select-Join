@@ -30,8 +30,19 @@ select_artists_not_in_2020 = connection.execute("""
     GROUP BY name;
     """).fetchall()
 
+select_compilation_with_Monica = connection.execute("""
+    SELECT compilation_name FROM track
+    JOIN album ON track.album_id = album.id
+    JOIN artist_album ON album.id = artist_album.album_id
+    JOIN artist ON artist_album.artist_id = artist.id
+    JOIN compilation_track ON track.id = compilation_track.track_id
+    JOIN compilation ON compilation_track.compilation_id = compilation.id
+    WHERE name = 'Monica Belucci'
+    GROUP BY compilation_name;
+    """).fetchall()
 
 # pprint(select_artist_in_genre_count)
 # pprint(select_count_tracks_20192020)
 # pprint(select_avg_duration_by_album)
 # pprint(select_artists_not_in_2020)
+# pprint(select_compilation_with_Monica)
