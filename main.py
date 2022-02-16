@@ -10,5 +10,13 @@ select_artist_in_genre_count = connection.execute("""
     GROUP BY genre_name;
     """).fetchall()
 
+select_count_tracks_20192020 = connection.execute("""
+    SELECT COUNT(track_name) FROM track
+    LEFT JOIN album ON track.album_id = album.id
+    WHERE release_date BETWEEN 2019 AND 2020;
+    """).fetchall()
+
+
 
 # pprint(select_artist_in_genre_count)
+pprint(select_count_tracks_20192020)
