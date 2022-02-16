@@ -51,9 +51,17 @@ select_albums_multigenre = connection.execute("""
     HAVING COUNT(name) > 1;
     """).fetchall()
 
+select_tracks_not_in_compilation = connection.execute("""
+    SELECT track_name FROM track
+    LEFT JOIN compilation_track ON track.id = compilation_track.track_id
+    LEFT JOIN compilation ON compilation_track.compilation_id = compilation.id
+    WHERE compilation_name = NULL;
+    """).fetchall()
+
 # pprint(select_artist_in_genre_count)
 # pprint(select_count_tracks_20192020)
 # pprint(select_avg_duration_by_album)
 # pprint(select_artists_not_in_2020)
 # pprint(select_compilation_with_Monica)
 # pprint(select_albums_multigenre)
+# print(select_tracks_not_in_compilation)
