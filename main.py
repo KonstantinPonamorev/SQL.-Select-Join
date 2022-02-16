@@ -67,6 +67,15 @@ select_artist_shorter_track = connection.execute("""
         SELECT MIN(duration_sec) FROM track);
     """).fetchall()
 
+# select_shorter_albums = connection.execute("""
+#     SELECT title FROM track
+#     JOIN album ON track.album_id = album.id
+#     WHERE  = (
+#         SELECT COUNT(title) FROM track
+#         JOIN album ON track.album_id = album.id)
+#     GROUP BY title;
+#     """).fetchall()
+
 # pprint(select_artist_in_genre_count)
 # pprint(select_count_tracks_20192020)
 # pprint(select_avg_duration_by_album)
