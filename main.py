@@ -16,7 +16,13 @@ select_count_tracks_20192020 = connection.execute("""
     WHERE release_date BETWEEN 2019 AND 2020;
     """).fetchall()
 
+select_avg_duration_by_album = connection.execute("""
+    SELECT title, AVG(duration_sec) FROM track
+    LEFT JOIN album ON track.album_id = album.id
+    GROUP BY title;
+    """).fetchall()
 
 
 # pprint(select_artist_in_genre_count)
-pprint(select_count_tracks_20192020)
+# pprint(select_count_tracks_20192020)
+# pprint(select_avg_duration_by_album)
