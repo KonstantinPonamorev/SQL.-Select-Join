@@ -22,7 +22,16 @@ select_avg_duration_by_album = connection.execute("""
     GROUP BY title;
     """).fetchall()
 
+select_artists_not_in_2020 = connection.execute("""
+    SELECT name FROM album
+    LEFT JOIN artist_album ON album.id = artist_album.album_id
+    LEFT JOIN artist ON artist_album.artist_id = artist.id 
+    WHERE release_date NOT BETWEEN 2018 and 2018
+    GROUP BY name;
+    """).fetchall()
+
 
 # pprint(select_artist_in_genre_count)
 # pprint(select_count_tracks_20192020)
 # pprint(select_avg_duration_by_album)
+# pprint(select_artists_not_in_2020)
